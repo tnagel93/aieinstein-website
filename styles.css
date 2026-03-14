@@ -161,6 +161,11 @@ body {
     border: none;
 }
 
+a.btn {
+    text-decoration: none;
+    display: inline-block;
+}
+
 .btn-primary {
     background: #007AFF;
     color: white;
@@ -306,6 +311,24 @@ body {
 .download-btn-large:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+a.download-btn,
+a.download-btn-large {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.download-btn-large.coming-soon {
+    background: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.9);
+    cursor: default;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.download-btn-large.coming-soon:hover {
+    transform: none;
+    box-shadow: none;
 }
 
 /* Footer */

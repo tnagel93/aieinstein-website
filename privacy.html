@@ -6,6 +6,7 @@
     <title>Privacy Policy - AiEinstein</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="page-styles.css">
+    <script src="config.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -21,7 +22,7 @@
                 <a href="fitness.html">Fitness</a>
                 <a href="privacy.html" class="active">Privacy Policy</a>
             </nav>
-            <button class="download-btn">Download App</button>
+            <a href="#" class="download-btn">Download App</a>
         </div>
     </header>
 
@@ -30,86 +31,116 @@
         <div class="container">
             <div class="privacy-content">
                 <h1>Privacy Policy</h1>
-                <p class="last-updated">Last updated: October 12, 2025</p>
+                <p class="last-updated">Last updated: March 14, 2026</p>
                 
                 <div class="privacy-card">
                     <h2>Introduction</h2>
-                    <p>AiEinstein ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our AiE mobile application.</p>
+                    <p>AiEinstein ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our AiE mobile application ("App").</p>
+                    
+                    <h2>How the App Works</h2>
+                    <p>The App helps you manage medications, generate personalized fitness and nutrition plans, and view a medication calendar. You can use it as a guest (anonymous) or sign in with Apple, Google, or Email to sync your data across devices.</p>
                     
                     <h2>Information We Collect</h2>
-                    <h3>Camera and Photos:</h3>
+                    
+                    <h3>1. Authentication</h3>
                     <ul>
-                        <li>Our app requires camera access to capture photos of your medication list</li>
-                        <li>Photos are sent to our Cloud Functions (which use OpenAI's API) for plan generation and medication extraction</li>
-                        <li>We do not store, save, or retain any photos you take through our app</li>
-                        <li>Photos are only transmitted temporarily for analysis and are not stored by us</li>
+                        <li><strong>Anonymous users:</strong> The App signs you in anonymously by default so you can use it immediately. Firebase Auth assigns a unique user ID. Your data is stored locally on your device and synced to our servers under this anonymous ID.</li>
+                        <li><strong>Signed-in users:</strong> When you sign in with Apple, Google, or Email, we link your account to preserve your data. We receive your email address (if you sign in with Email), or the identifiers provided by Apple/Google. We do not receive your Apple or Google password.</li>
                     </ul>
                     
-                    <h3>Account and Synced Data (when you sign in):</h3>
+                    <h3>2. Data You Create in the App</h3>
+                    <p>When you use the App, the following data is stored locally on your device and, when you are signed in (including as an anonymous user), synced to Firebase Firestore:</p>
                     <ul>
-                        <li>When you sign in with Apple, Google, or Email, we store your medication list, fitness and nutrition plans, and calendar assignments in Firebase Firestore</li>
-                        <li>This allows your data to sync across your devices</li>
-                        <li>We do not store medication images or raw photo data</li>
+                        <li><strong>Medication list:</strong> Medication name, dosage, number of pills, reminder times, notes, refill quantity and reminders, expiration date and reminders. You add this manually or by confirming medications extracted from a photo.</li>
+                        <li><strong>Fitness and nutrition plans:</strong> AI-generated plans (summary, goals, weekly schedule, foods to emphasize/avoid, restrictions, tips). These are created from your medication list or a photo of it.</li>
+                        <li><strong>Calendar assignments:</strong> Which medications are scheduled for which dates (next 90 days). Used to show your daily medication schedule.</li>
+                        <li><strong>Subscription/trial:</strong> Your free trial end date (30 days from first use). Used to determine access. Paid subscription status is verified on your device via Apple; we do not store payment details.</li>
                     </ul>
                     
-                    <h3>Device Information:</h3>
+                    <h3>3. Camera and Photos</h3>
                     <ul>
-                        <li>We may collect basic device information necessary for app functionality</li>
-                        <li>This includes device type, operating system version, and app version</li>
+                        <li>If you use the photo feature, the App requests camera access to capture a photo of your medication list.</li>
+                        <li>Photos are compressed (max 2048px, max 15MB) and sent as base64 to our Firebase Cloud Functions. The Cloud Function forwards the image to OpenAI's API for analysis.</li>
+                        <li>We do not store, save, or retain any photos. They are transmitted only for the duration of the request. OpenAI's systems may process and temporarily retain data per their privacy policy.</li>
+                        <li>You can add medications manually without using the camera; camera access is optional for that flow.</li>
+                    </ul>
+                    
+                    <h3>4. Medication List Text (Alternative to Photo)</h3>
+                    <ul>
+                        <li>When you use "Refresh plans from my medications," the App sends your medication list as plain text (name, dosage, notes per medication) to our Cloud Function. The Cloud Function forwards it to OpenAI to generate plans.</li>
+                        <li>This text is sent only for the request; we do not store it on our servers beyond what is already in your synced medication list.</li>
+                    </ul>
+                    
+                    <h3>5. Notifications</h3>
+                    <ul>
+                        <li>The App uses local notifications (iOS) for medication reminders, refill reminders, and expiration reminders. These are scheduled and delivered entirely on your device. We do not send push notifications from our servers.</li>
+                        <li>Notification content (e.g., medication names, times) stays on your device.</li>
+                    </ul>
+                    
+                    <h3>6. Analytics</h3>
+                    <ul>
+                        <li>We use Firebase Analytics to understand how the App is used. Events we log include: plan generation success/failure (and source: image or medication list), sign-in method, sign-out, medication list opened (with medication count), and medication added. We do not log medication names, dosages, or other health details in analytics.</li>
+                        <li>Firebase may collect device identifiers, IP address, and similar data per Google's policies.</li>
+                    </ul>
+                    
+                    <h3>7. Device Information</h3>
+                    <ul>
+                        <li>We may collect device type, operating system version, and app version for compatibility and support.</li>
                     </ul>
                     
                     <h2>How We Use Your Information</h2>
-                    <h3>Plan Generation and Medication Analysis:</h3>
                     <ul>
-                        <li>Photos you capture are sent to our Cloud Functions (using OpenAI's GPT-4o) for medication extraction and plan generation</li>
-                        <li>The analysis produces fitness plans, nutrition plans, and parsed medications</li>
-                        <li>We do not store photos; when you sign in, only your saved medication list, plans, and calendar data are synced to Firestore</li>
-                    </ul>
-                    
-                    <h3>App Functionality:</h3>
-                    <ul>
-                        <li>Device information is used to ensure proper app operation and compatibility</li>
-                        <li>Camera access is used only to capture photos for plan generation</li>
+                        <li>To generate personalized fitness and nutrition plans from your medication list or a photo of it</li>
+                        <li>To sync your medication list, plans, and calendar across your devices when you are signed in</li>
+                        <li>To manage your free trial and subscription access</li>
+                        <li>To improve the App and troubleshoot issues (via analytics and error reporting)</li>
                     </ul>
                     
                     <h2>Third-Party Services</h2>
-                    <h3>Firebase (Google):</h3>
+                    <h3>Firebase (Google)</h3>
                     <ul>
-                        <li>We use Firebase for authentication (Sign in with Apple, Google, Email) and Firestore for syncing your medication list, plans, and calendar</li>
-                        <li>Google's privacy policy applies to Firebase services</li>
+                        <li>Authentication (anonymous, Apple, Google, Email), Firestore (database), Cloud Functions (serverless backend), and Analytics</li>
+                        <li>Your synced data (medications, plans, calendar, trial info) is stored in Firestore. Google's privacy policy applies: <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">firebase.google.com/support/privacy</a></li>
                     </ul>
-                    <h3>OpenAI API:</h3>
+                    <h3>OpenAI</h3>
                     <ul>
-                        <li>We use OpenAI's GPT-4o API (via Cloud Functions) to analyze medication photos and generate plans</li>
-                        <li>Photos are sent to our Cloud Functions for processing; OpenAI's privacy policy applies to data sent to their service</li>
-                        <li>We do not control how OpenAI handles your data once transmitted</li>
+                        <li>Our Cloud Functions send medication list photos or text to OpenAI's GPT-4o API to extract medications and generate plans. OpenAI's privacy policy applies to data sent to them: <a href="https://openai.com/privacy" target="_blank" rel="noopener">openai.com/privacy</a></li>
+                        <li>We do not control OpenAI's data handling. Photos and text are sent only for processing; we do not store them on our servers.</li>
+                    </ul>
+                    <h3>Apple</h3>
+                    <ul>
+                        <li>Sign in with Apple and In-App Purchases (StoreKit 2) for subscriptions. Apple processes sign-in and payments. Subscription status is verified on your device; we do not receive your payment details.</li>
+                    </ul>
+                    <h3>Google</h3>
+                    <ul>
+                        <li>Sign in with Google. Google provides authentication; we receive the identifiers they supply for account linking.</li>
                     </ul>
                     
                     <h2>Data Storage and Retention</h2>
                     <ul>
-                        <li><strong>Photos:</strong> We do not store any photos you take through our app</li>
-                        <li><strong>Medication list, plans, calendar:</strong> When you sign in, these are stored in Firebase Firestore and synced across your devices. You control your medication list.</li>
-                        <li><strong>Device Information:</strong> Basic device information may be stored for app functionality</li>
+                        <li><strong>Photos:</strong> Not stored. Transmitted only during the request.</li>
+                        <li><strong>Medication list, plans, calendar, trial:</strong> Stored locally on your device and, when signed in, in Firebase Firestore. Data persists until you delete it or request account deletion.</li>
+                        <li><strong>Analytics:</strong> Firebase Analytics data is retained per Google's policies.</li>
                     </ul>
                     
                     <h2>Data Security</h2>
                     <ul>
-                        <li>Photos are transmitted securely using HTTPS encryption</li>
-                        <li>We implement appropriate security measures to protect your information</li>
-                        <li>However, no method of transmission over the internet is 100% secure</li>
+                        <li>Data is transmitted over HTTPS. Firestore uses encryption at rest. We use Firebase security rules to restrict access to your data by user ID.</li>
+                        <li>No method of transmission or storage is 100% secure. We implement reasonable measures to protect your information.</li>
                     </ul>
                     
                     <h2>Your Rights and Choices</h2>
-                    <h3>Camera Access:</h3>
+                    <h3>Camera and Notifications</h3>
                     <ul>
-                        <li>You can grant or deny camera access through your device settings</li>
-                        <li>The app requires camera access to function</li>
+                        <li>You can grant or deny camera access in iOS Settings. Denying camera access means you must add medications manually.</li>
+                        <li>You can grant or deny notification permission. Denying it means you will not receive medication reminders.</li>
                     </ul>
                     
-                    <h3>Data Deletion:</h3>
+                    <h3>Account and Data</h3>
                     <ul>
-                        <li>We do not store your photos. When signed in, your medication list, plans, and calendar are in Firestore. Contact us to request deletion of your account data.</li>
-                        <li>You can delete the app at any time to remove it from your device</li>
+                        <li>You can sign out at any time. Signing out creates a new anonymous session; your previous data remains associated with the prior account.</li>
+                        <li>To request deletion of your account and all associated data (medications, plans, calendar, trial info) from our systems, contact us at aieinstein1825@gmail.com. We will process requests within a reasonable time.</li>
+                        <li>Deleting the App from your device removes local data. It does not automatically delete data from our servers; contact us for that.</li>
                     </ul>
                     
                     <h2>Children's Privacy</h2>
@@ -155,5 +186,6 @@
             </div>
         </div>
     </footer>
+    <script src="app-links.js"></script>
 </body>
 </html>

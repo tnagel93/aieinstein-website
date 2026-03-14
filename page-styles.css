@@ -769,6 +769,15 @@
     line-height: 1.5;
 }
 
+.privacy-card a {
+    color: #007AFF;
+    text-decoration: none;
+}
+
+.privacy-card a:hover {
+    text-decoration: underline;
+}
+
 /* Responsive design for pages */
 @media (max-width: 768px) {
     .content-grid {

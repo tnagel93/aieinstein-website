@@ -248,6 +248,10 @@ body {
     color: #AF52DE;
 }
 
+.calendar-icon {
+    color: #007AFF;
+}
+
 .feature-card h3 {
     font-size: 1.5rem;
     font-weight: 600;
